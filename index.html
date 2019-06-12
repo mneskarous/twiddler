@@ -10,14 +10,15 @@
       <header>
         <h1 class="title">Twiddler Feed</h1>
       </header>
-      <section class="main-feed"></section>
-      <section></section class="new-tweets">
-      <button class="see-new-tweets">See New Tweets</button>
+      <div class="main-feed">
+        <section class="old-tweets"></section>
+        <section class="new-tweets"></section>
+      </div>
       <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
-          var $tweets = $('.main-feed');
-          $tweets.html('');
+          var $body = $('.main-feed');
+          // $tweets.html('');
 
           var index = streams.home.length - 1;
           while(index >= 0){
@@ -27,7 +28,7 @@
             var $message = $('<p class=message></p>');
             var $time = $('<p class=time></p>');
 
-            $tweet.appendTo('.main-feed');
+            $tweet.appendTo('.old-tweets');
             $user.addClass(tweet.user).text('@' + tweet.user + ' ').appendTo($tweet);
             $message.text(tweet.message).appendTo($tweet);
             $time.text(tweet.created_at).appendTo($tweet);
@@ -36,6 +37,24 @@
             index -= 1;
           }
 
+          var $button = $("<input class='new-tweet' type=button value='See New Tweet'>");
+          $button.appendTo($body);
+
+          $button.on('click', function() {
+            generateRandomTweet();
+
+            var newTweet = streams.home.pop();
+            var $newTweet = $('<div class=tweet></div>');
+            var $newUser = $('<p class=user></p>');
+            var $newMessage = $('<p class=message></p>');
+            var $newTime = $('<p class=time></p>');
+
+            $newTweet.appendTo('.new-tweets');
+            $newUser.addClass(newTweet.user).text('@' + newTweet.user + ' ').appendTo($newTweet);
+            $newMessage.text(newTweet.message).appendTo($newTweet);
+            $newTime.text(newTweet.created_at).appendTo($newTweet);
+
+          })
 
 
         });
