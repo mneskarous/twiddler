@@ -3,25 +3,42 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link href="main.css" rel="stylesheet">
   </head>
   <body>
+    <!-- <button>New Tweets</button> -->
     <script>
-
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+
+        var $tweets = $('.tweets');
+        $tweets.html('');
 
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          $tweet.text('@' + tweet.user + ': ' + tweet.message + ' Tweeted at: ' + tweet.created_at);
+          $tweet.appendTo($tweets);
           index -= 1;
+
+          $('button').click(function(){
+            location.reload();
+          })
+
         }
 
       });
 
     </script>
+    <header class="title">
+      <h1>New Tweets</h1>
+    </header>
+    <div class="tweets container">
+    </div>
+    <div class="button container">
+      <button>Display New Tweets</button>
+    </div>
+
   </body>
+
 </html>
