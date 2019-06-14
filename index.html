@@ -8,20 +8,23 @@
   <body>
     <div class="container">
       <header>
-        <h1 class="title">Twiddler Feed</h1>
+        <h1 class="title">Twiddler</h1>
       </header>
       <div class="main-feed">
         <section class="old-tweets"></section>
         <section class="new-tweets"></section>
       </div>
+      <button id="new" class="btn">See New Tweets</button>
+      <button id="home" class="btn">Home</button>
       <script>
         $(document).ready(function() {
 
+          // Refactored old tweet section
           var $body = $('.main-feed');
           // $tweets.html('');
 
           var index = streams.home.length - 1;
-          while(index >= 0){
+          while(index >= 0) {
             var tweet = streams.home[index];
             var $tweet = $('<div class=tweet></div>');
             var $user = $('<p class=user></p>');
@@ -29,7 +32,7 @@
             var $time = $('<p class=time></p>');
 
             $tweet.appendTo('.old-tweets');
-            $user.addClass(tweet.user).text('@' + tweet.user + ' ').appendTo($tweet);
+            $user.addClass(tweet.user).addClass('link').text('@' + tweet.user).appendTo($tweet);
             $message.text(tweet.message).appendTo($tweet);
             $time.text(tweet.created_at).appendTo($tweet);
             // $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + tweet.created_at);
@@ -37,24 +40,55 @@
             index -= 1;
           }
 
-          var $button = $("<input class='new-tweet' type=button value='See New Tweet'>");
-          $button.appendTo($body);
+          // Button to see new tweets
+          $('#new').click(function() {
+            var randomNumberOfTweets = Math.floor(Math.random() * Math.floor(8));
 
-          $button.on('click', function() {
-            generateRandomTweet();
+            for (var i = 0; i <= randomNumberOfTweets; i++) {
+              generateRandomTweet();
 
-            var newTweet = streams.home.pop();
-            var $newTweet = $('<div class=tweet></div>');
-            var $newUser = $('<p class=user></p>');
-            var $newMessage = $('<p class=message></p>');
-            var $newTime = $('<p class=time></p>');
+              var newTweet = streams.home.pop();
+              var $newTweet = $('<div class=tweet></div>');
+              var $newUser = $('<p class=user></p>');
+              var $newMessage = $('<p class=message></p>');
+              var $newTime = $('<p class=time></p>');
 
-            $newTweet.appendTo('.new-tweets');
-            $newUser.addClass(newTweet.user).text('@' + newTweet.user + ' ').appendTo($newTweet);
-            $newMessage.text(newTweet.message).appendTo($newTweet);
-            $newTime.text(newTweet.created_at).appendTo($newTweet);
+              $newTweet.appendTo('.new-tweets');
+              $newUser.addClass(newTweet.user).addClass('link').text('@' + newTweet.user).appendTo($newTweet);
+              $newMessage.text(newTweet.message).appendTo($newTweet);
+              $newTime.text(newTweet.created_at).appendTo($newTweet);
+            }
+          });
 
-          })
+          // Button to return to main feed
+          $('#home').click(function() {
+            $('.old-tweets').show();
+            $('.new-tweets').show();
+            $('#new').show();
+          });
+
+          // Filter timeline to show tweets from user's timeline
+          // function filterTweetsByUser(user) {
+          //   if (user === 'user') {
+          //     $('.tweet').show();
+          //   } else {
+          //     $('.tweet').hide();
+          //   }
+          //   $('#new').hide();
+          //   // $homeButton.show();
+          // }
+
+          // Click on username to see the user's timeline
+          $('body').on('click', '.tweet .user', function() {
+            var user = $(this).closest('tweet').data('user');
+            $('.old-tweets').hide();
+            $('.new-tweets').hide();
+            $('#new').hide();
+            // filterTweetsByUser(user);
+          });
+
+
+
 
 
         });
