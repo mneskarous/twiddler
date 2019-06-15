@@ -10,19 +10,17 @@
       <header>
         <h1 class="title">Twiddler</h1>
       </header>
-      <button id="home" class="btn">Home</button>
       <div class="main-feed">
         <section class="old-tweets"></section>
         <section class="new-tweets"></section>
+        <button id="new" class="btn">See New Tweets</button>
+        <button id="home" class="btn">Return to Main Feed</button>
       </div>
-      <button id="new" class="btn">See New Tweets</button>
-
       <script>
         $(document).ready(function() {
 
-          // Refactored old tweet section
+          // Refactored old tweets section
           var $body = $('.main-feed');
-          // $tweets.html('');
 
           var index = streams.home.length - 1;
           while(index >= 0) {
@@ -33,10 +31,9 @@
             var $time = $('<p class=time></p>');
 
             $tweet.appendTo('.old-tweets');
-            $user.addClass(tweet.user).addClass('link').text('@' + tweet.user).appendTo($tweet);
+            $user.addClass(tweet.user).text('@' + tweet.user).appendTo($tweet);
             $message.text(tweet.message).appendTo($tweet);
             $time.text(tweet.created_at).appendTo($tweet);
-            // $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + tweet.created_at);
 
             index -= 1;
           }
@@ -55,7 +52,7 @@
               var $newTime = $('<p class=time></p>');
 
               $newTweet.appendTo('.new-tweets');
-              $newUser.addClass(newTweet.user).addClass('link').text('@' + newTweet.user).appendTo($newTweet);
+              $newUser.addClass(newTweet.user).text('@' + newTweet.user).appendTo($newTweet);
               $newMessage.text(newTweet.message).appendTo($newTweet);
               $newTime.text(newTweet.created_at).appendTo($newTweet);
             }
@@ -63,34 +60,20 @@
 
           // Button to return to main feed
           $('#home').click(function() {
-            $('.old-tweets').show();
-            $('.new-tweets').show();
+            var user = this.className.substring(5);
+            $('#home').hide();
             $('#new').show();
+            $('.tweet').not("div:contains('" + user + "')").show();
           });
 
-          // Filter timeline to show tweets from user's timeline
-          // function filterTweetsByUser(user) {
-          //   if (user === 'user') {
-          //     $('.tweet').show();
-          //   } else {
-          //     $('.tweet').hide();
-          //   }
-          //   $('#new').hide();
-          //   // $homeButton.show();
-          // }
-
-          // Click on username to see the user's timeline
-          $('body').on('click', '.tweet .user', function() {
-            var user = $(this).closest('tweet').data('user');
-            $('.old-tweets').hide();
-            $('.new-tweets').hide();
+          // Click on username to see that user's timeline
+          $('.main-feed').on('click', '.tweet .user', function() {
+            var user = this.className.substring(5);
+            $('#home').show();
+            $('.tweet').not("div:contains('" + user + "')").hide();
+            $("div:contains('" + user + "')").show();
             $('#new').hide();
-            // filterTweetsByUser(user);
           });
-
-
-
-
 
         });
 
