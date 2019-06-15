@@ -22,10 +22,11 @@
       <script>
         $(document).ready(function() {
           $('#home').hide();
+
           // Refactored old tweets section
           var $body = $('.main-feed');
-
           var index = streams.home.length - 1;
+
           while(index >= 0) {
             var tweet = streams.home[index];
             var $tweet = $('<div class=tweet></div>');
@@ -45,7 +46,7 @@
           $('#new').click(function() {
             var randomNumberOfTweets = Math.floor(Math.random() * Math.floor(8));
 
-            for (var i = 0; i <= randomNumberOfTweets; i++) {
+            for (var i = 1; i <= randomNumberOfTweets; i++) {
               generateRandomTweet();
 
               var newTweet = streams.home.pop();
@@ -59,33 +60,29 @@
               $newMessage.text(newTweet.message).appendTo($newTweet);
               $newTime.attr('data-livestamp',new Date()).appendTo($newTweet);
             }
+
           });
 
           // Button to return to main feed
           $('#home').click(function() {
             var user = this.className.substring(5);
+
             $('#home').hide();
             $('#new').show();
             $('.tweet').not("div:contains('" + user + "')").show();
+
           });
 
           // Click on username to see that user's timeline
           $('.main-feed').on('click', '.tweet .user', function() {
             var user = this.className.substring(5);
+
             $('#home').show();
             $('.tweet').not("div:contains('" + user + "')").hide();
             $("div:contains('" + user + "')").show();
             $('#new').hide();
+
           });
-
-          // Changes style of username and cursor when hovering over username
-          $('.main-feed').on('mouseover', '.tweet .user', function () {
-            $(this).css({'text-decoration': 'underline', 'color': 'blue', 'cursor': 'pointer'});
-          })
-
-          $('.main-feed').on('mouseleave', '.tweet .user', function () {
-            $(this).css({'text-decoration': 'none', 'color': 'black', 'cursor': 'auto'});
-          })
 
         });
 
