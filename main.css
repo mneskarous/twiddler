@@ -49,9 +49,9 @@ table {
 
 /* ------------------------General Styles------------------------ */
 
-/*body {
-    background-color: #0a437f;
-}*/
+body {
+    background-color: #042242;
+}
 
 /* ------------------------Header------------------------ */
 
@@ -65,4 +65,69 @@ header {
     font-family: 'Open Sans', sans-serif;
     font-size: 80px;
     font-weight: bold;
+    color: #042242;
+}
+
+/* ------------------------Main Feed------------------------ */
+.main-feed {
+    color: white;
+    margin: 20px auto;
+    max-width: 445px;
+}
+
+/* ------------------------Tweet------------------------ */
+.tweet {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #54a8ff;
+    color: #042242;
+    border-radius: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+}
+
+/* ------------------------Buttons------------------------ */
+.btn {
+    float: right;
+    margin-bottom: 30px;
+    height: 50px;
+    width: 150px;
+    border: none;
+    color: #042242;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    background-color: #54a8ff;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+/* ------------------------Username------------------------ */
+.tweet .user {
+    /*border: 2px solid white;*/
+    display: inline-block;
+    background-color:  #042242;
+    color: #54a8ff;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.tweet .user:hover {
+    cursor: pointer;
+    background-color: #54a8ff;
+    color: #042242;
+
+}
+
+/* ------------------------Message------------------------ */
+.tweet .message {
+    margin: 10px 0;
+}
+
+/* ------------------------Time------------------------ */
+.tweet .time {
+    margin: 10px 0;
 }
