@@ -98,6 +98,12 @@ header {
     font-size: 16px;
     background-color: #54a8ff;
     border-radius: 15px;
+}
+
+.btn:hover {
+    background-color: #042242;
+    color: #54a8ff;
+    border: 2px solid #54a8ff;
     cursor: pointer;
 }
 
@@ -119,7 +125,7 @@ header {
     cursor: pointer;
     background-color: #54a8ff;
     color: #042242;
-
+    border: 2px solid #042242;
 }
 
 /* ------------------------Message------------------------ */
