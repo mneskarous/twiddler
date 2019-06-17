@@ -125,6 +125,7 @@ header {
     cursor: pointer;
     background-color: #54a8ff;
     color: #042242;
+    padding: 6px;
     border: 2px solid #042242;
 }
 
